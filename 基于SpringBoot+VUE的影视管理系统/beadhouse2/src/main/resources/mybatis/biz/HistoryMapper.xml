@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icss.project.biz.mapper.HistoryMapper">
+
+    <resultMap type="History" id="HistoryResult">
+        <result property="id"    column="id"    />
+        <result property="title"    column="title"    />
+        <result property="name"    column="name"    />
+        <result property="mobile"    column="mobile"    />
+        <result property="address"    column="address"    />
+        <result property="content"    column="content"    />
+        <result property="imgs"    column="imgs"    />
+        <result property="num"    column="num"    />
+        <result property="status"    column="status"    />
+        <result property="date1"    column="date1"    />
+        <result property="field1"    column="field1"    />
+        <result property="field2"    column="field2"    />
+        <result property="field3"    column="field3"    />
+        <result property="field5"    column="field5"    />
+        <result property="userId"    column="user_id"    />
+        <result property="field7"    column="field7"    />
+        <result property="field8"    column="field8"    />
+        <result property="field9"    column="field9"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectHistoryVo">
+        select id, title, name, mobile, address, content, imgs, num, status, date1, field1, field2, field3, field5, user_id, field7, field8, field9, del_flag, create_by, create_time, update_by, update_time, remark from history
+    </sql>
+
+    <select id="selectHistoryList" parameterType="History" resultMap="HistoryResult">
+        <include refid="selectHistoryVo"/>
+        <where>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="imgs != null  and imgs != ''"> and imgs = #{imgs}</if>
+            <if test="num != null "> and num = #{num}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="date1 != null "> and date1 = #{date1}</if>
+            <if test="field1 != null  and field1 != ''"> and field1 = #{field1}</if>
+            <if test="field2 != null  and field2 != ''"> and field2 = #{field2}</if>
+            <if test="field3 != null  and field3 != ''"> and field3 = #{field3}</if>
+            <if test="field5 != null  and field5 != ''"> and field5 = #{field5}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="field7 != null  and field7 != ''"> and field7 = #{field7}</if>
+            <if test="field8 != null "> and field8 = #{field8}</if>
+            <if test="field9 != null "> and field9 = #{field9}</if>
+        </where>
+    </select>
+
+    <select id="selectHistoryById" parameterType="Long" resultMap="HistoryResult">
+        <include refid="selectHistoryVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectHistoryName" parameterType="String" resultMap="HistoryResult">
+        <include refid="selectHistoryVo"/>
+        where title = #{title}
+    </select>
+
+    <insert id="insertHistory" parameterType="History" useGeneratedKeys="true" keyProperty="id">
+        insert into history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">title,</if>
+            <if test="name != null">name,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="address != null">address,</if>
+            <if test="content != null">content,</if>
+            <if test="imgs != null">imgs,</if>
+            <if test="num != null">num,</if>
+            <if test="status != null">status,</if>
+            <if test="date1 != null">date1,</if>
+            <if test="field1 != null">field1,</if>
+            <if test="field2 != null">field2,</if>
+            <if test="field3 != null">field3,</if>
+            <if test="field5 != null">field5,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="field7 != null">field7,</if>
+            <if test="field8 != null">field8,</if>
+            <if test="field9 != null">field9,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">#{title},</if>
+            <if test="name != null">#{name},</if>
+            <if test="mobile != null">#{mobile},</if>
+            <if test="address != null">#{address},</if>
+            <if test="content != null">#{content},</if>
+            <if test="imgs != null">#{imgs},</if>
+            <if test="num != null">#{num},</if>
+            <if test="status != null">#{status},</if>
+            <if test="date1 != null">#{date1},</if>
+            <if test="field1 != null">#{field1},</if>
+            <if test="field2 != null">#{field2},</if>
+            <if test="field3 != null">#{field3},</if>
+            <if test="field5 != null">#{field5},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="field7 != null">#{field7},</if>
+            <if test="field8 != null">#{field8},</if>
+            <if test="field9 != null">#{field9},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateHistory" parameterType="History">
+        update history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="title != null">title = #{title},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="mobile != null">mobile = #{mobile},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="imgs != null">imgs = #{imgs},</if>
+            <if test="num != null">num = #{num},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="date1 != null">date1 = #{date1},</if>
+            <if test="field1 != null">field1 = #{field1},</if>
+            <if test="field2 != null">field2 = #{field2},</if>
+            <if test="field3 != null">field3 = #{field3},</if>
+            <if test="field5 != null">field5 = #{field5},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="field7 != null">field7 = #{field7},</if>
+            <if test="field8 != null">field8 = #{field8},</if>
+            <if test="field9 != null">field9 = #{field9},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteHistoryById" parameterType="Long">
+        delete from history where id = #{id}
+    </delete>
+
+    <delete id="deleteHistoryByIds" parameterType="String">
+        delete from history where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
