@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icss.project.biz.mapper.CarouselMapper">
+
+    <resultMap type="Carousel" id="CarouselResult">
+        <result property="id"    column="id"    />
+        <result property="img"    column="img"    />
+        <result property="name"    column="name"    />
+        <result property="rl"    column="rl"    />
+    </resultMap>
+
+    <sql id="selectCarouselVo">
+        select id, img, name, rl from carousel
+    </sql>
+
+    <select id="selectCarouselList" parameterType="Carousel" resultMap="CarouselResult">
+        <include refid="selectCarouselVo"/>
+        <where>
+        </where>
+    </select>
+
+    <select id="selectCarouselById" parameterType="Long" resultMap="CarouselResult">
+        <include refid="selectCarouselVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCarousel" parameterType="Carousel" useGeneratedKeys="true" keyProperty="id">
+        insert into carousel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="img != null">img,</if>
+            <if test="name != null">name,</if>
+            <if test="rl != null">rl,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="img != null">#{img},</if>
+            <if test="name != null">#{name},</if>
+            <if test="rl != null">#{rl},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCarousel" parameterType="Carousel">
+        update carousel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="img != null">img = #{img},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="rl != null">rl = #{rl},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCarouselById" parameterType="Long">
+        delete from carousel where id = #{id}
+    </delete>
+
+    <delete id="deleteCarouselByIds" parameterType="String">
+        delete from carousel where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

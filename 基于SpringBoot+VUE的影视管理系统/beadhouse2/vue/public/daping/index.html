@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>大数据统计</title>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript" src="js/jquery.liMarquee.js"></script>
+    <script type="text/javascript" src="js/jquery.cxselect.min.js"></script>
+
+    <link rel="stylesheet" href="css/comon0.css">
+</head>
+<body>
+    <div style="background:#000d4a url(images/bg.jpg) center top;">
+        <div class="loading">
+            <div class="loadbox"> <img src="images/loading.gif"> 页面加载中... </div>
+        </div>
+        <div class="back"></div>
+        <div class="head">
+            <div class="weather"><span id="showTime"></span></div>
+            <h1>统计大屏</h1>
+
+        </div>
+        <script>
+            var t = null;
+            t = setTimeout(time, 1000);/*開始运行*/
+            function time() {
+                clearTimeout(t);/*清除定时器*/
+                dt = new Date();
+                var y = dt.getFullYear();
+                var mt = dt.getMonth() + 1;
+                var day = dt.getDate();
+                var h = dt.getHours();
+                var m = dt.getMinutes();
+                var s = dt.getSeconds();
+                document.getElementById("showTime").innerHTML = y + "年" + mt + "月" + day + "日" + h + "时" + m + "分" + s + "秒";
+                t = setTimeout(time, 1000); 
+            }
+
+        </script>
+        <div class="mainbox">
+            <ul class="clearfix">
+                <li>
+                    <div class="boxall" style="height:400px;">
+                        <div class="alltitle">品牌消费统计</div>
+                        <div class="navboxall" id="echart5"></div>
+                    </div>
+                    <div class="boxall" style="height:260px;">
+                        <div class="alltitle">品牌消费数据</div>
+                        <div class="navboxall">
+                            <div class="wraptit">
+                                <span>品牌</span><span>占总比</span><span>总金额</span>
+                            </div>
+                            <div class="wrap">
+                                <ul id="ppyssj">
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="boxall" style="height:260px;">
+                        <div class="alltitle">品牌消费占比</div>
+
+                        <div class="navboxall" id="echart1"></div>
+                    </div>
+                </li>
+                <li>
+
+                    <div class="boxall" style="height:230px">
+                        <div class="clearfix navboxall" style="height: 100%">
+                            <div class="pulll_left num" style="width: 100%;">
+                                <div class="numbt">总消费额<span>(单位：元)</span></div>
+                                <div class="numtxt" id="tolfee" style="text-align: center">0 </div>
+                            </div>
+                            <!-- <div class="pulll_right zhibiao">
+                                <div class="zb1"><span>标题样式</span><div id="zb1"></div></div>
+                                <div class="zb2"><span>标题样式</span><div id="zb2"></div></div>
+                                <div class="zb3"><span>标题样式</span><div id="zb3"></div></div>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="boxall" style="height:350px;">
+                        <div class="alltitle">周人流量统计</div>
+                        <div class="navboxall" id="echart4" style=""></div>
+
+                    </div>
+                    <div class="boxall" style="height:340px">
+                        <div class="alltitle">周消费额统计</div>
+                        <div class="navboxall" id="echart3"></div>
+                    </div>
+                </li>
+                <li>
+                    <div class="boxall" style="height:440px">
+                        <div class="alltitle">周消费额统计列表</div>
+                        <div class="navboxall">
+                            <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody id="zxfe">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="boxall" style="height: 440px">
+                        <div class="alltitle">楼层消费额统计</div>
+                        <div class="navboxall">
+                            <table class="table1" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody id="xflc">
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">楼层</th>
+                                        <th scope="col">金额</th>
+                                    </tr>
+                                    <tr>
+                                        <td><span>1</span></td>
+                                        <td>1F</td>
+                                        <td>0<br></td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="boxall" style="height:320px">
+                        <div class="alltitle">到访时间统计</div>
+                        <div class="navboxall" id="echart2"></div>
+                    </div> -->
+
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            $('.wrap,.adduser').liMarquee({
+                direction: 'up',/*身上滚动*/
+                runshort: false,/*内容不足时不滚动*/
+                scrollamount: 20/*速度*/
+            });
+        });
+
+    </script>
+
+
+</body>
+</html>

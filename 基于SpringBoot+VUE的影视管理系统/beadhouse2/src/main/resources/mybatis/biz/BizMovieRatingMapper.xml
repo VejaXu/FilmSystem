@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.icss.project.biz.mapper.BizMovieRatingMapper">
+
+    <resultMap type="BizMovieRating" id="BizMovieRatingResult">
+        <result property="movieRatingId"    column="movie_rating_id"    />
+        <result property="movieRatingSource"    column="movie_rating_source"    />
+        <result property="filmsId"    column="films_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remarks"    column="remarks"    />
+    </resultMap>
+
+    <sql id="selectBizMovieRatingVo">
+        select movie_rating_id, movie_rating_source, films_id, user_id, create_time, create_by, update_time, update_by, remarks from biz_movie_rating
+    </sql>
+
+    <select id="selectBizMovieRatingList" parameterType="BizMovieRating" resultMap="BizMovieRatingResult">
+        <include refid="selectBizMovieRatingVo"/>
+        <where>
+            <if test="movieRatingSource != null "> and movie_rating_source = #{movieRatingSource}</if>
+            <if test="filmsId != null "> and films_id = #{filmsId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+        </where>
+    </select>
+
+    <select id="selectBizMovieRatingByMovieRatingId" parameterType="Long" resultMap="BizMovieRatingResult">
+        <include refid="selectBizMovieRatingVo"/>
+        where movie_rating_id = #{movieRatingId}
+    </select>
+
+    <insert id="insertBizMovieRating" parameterType="BizMovieRating">
+        insert into biz_movie_rating
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="movieRatingId != null">movie_rating_id,</if>
+            <if test="movieRatingSource != null">movie_rating_source,</if>
+            <if test="filmsId != null">films_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remarks != null">remarks,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="movieRatingId != null">#{movieRatingId},</if>
+            <if test="movieRatingSource != null">#{movieRatingSource},</if>
+            <if test="filmsId != null">#{filmsId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remarks != null">#{remarks},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizMovieRating" parameterType="BizMovieRating">
+        update biz_movie_rating
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="movieRatingSource != null">movie_rating_source = #{movieRatingSource},</if>
+            <if test="filmsId != null">films_id = #{filmsId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </trim>
+        where movie_rating_id = #{movieRatingId}
+    </update>
+
+    <delete id="deleteBizMovieRatingByMovieRatingId" parameterType="Long">
+        delete from biz_movie_rating where movie_rating_id = #{movieRatingId}
+    </delete>
+
+    <delete id="deleteBizMovieRatingByMovieRatingIds" parameterType="String">
+        delete from biz_movie_rating where movie_rating_id in
+        <foreach item="movieRatingId" collection="array" open="(" separator="," close=")">
+            #{movieRatingId}
+        </foreach>
+    </delete>
+</mapper>
